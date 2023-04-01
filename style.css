@@ -1,0 +1,221 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgba(37, 37, 37, 0.939);
+  color: white;
+}
+
+/* how we do it in the past */
+/* Issue */
+.flex-container {
+  background-color: rgb(41, 41, 41);
+}
+
+.item {
+  width: 100px;
+  height: 100px;
+  background-color: #254de4;
+  margin: 10px;
+  padding: 10px;
+  float: left; /* We used floats */
+}
+
+/* End of issue */
+
+/* The issue with float is if there is a div or an element after .flex-container it is alse floats to the left, and to fix it we have to clear the float and set the display to block of .flex-container::after   */
+
+/* Fix: */
+/* .flex-container::after {
+  content: "";
+  display: block;
+  clear: both;
+  background-color: rgb(41, 41, 41);
+} */
+
+/* .item {
+  width: 100px;
+  height: 100px;
+  background-color: #254de4;
+  margin: 10px;
+  padding: 10px;
+  float: left; 
+} */
+/* End of Fix: */
+
+/* Flexbox */
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(41, 41, 41);
+  /* Always aligns on the main axis */
+  justify-content: space-between;
+  /* Always aligns on the cross axis */
+  align-items: center;
+}
+
+.item {
+  width: 100px;
+  height: 100px;
+  background-color: #254de4;
+  margin: 10px;
+  padding: 10px;
+
+  /* flex if there is text and align it to center */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .align-self will align the specific item to defined alignment */
+/* .item:nth-of-type(1) {
+  align-self: flex-start;
+}
+
+.item:nth-of-type(2) {
+  align-self: flex-end;
+}
+
+.item:nth-of-type(3) {
+  align-self: center;
+} */
+
+/* Wrapping elements */
+.container {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(41, 41, 41);
+  justify-content: space-between;
+  align-items: center;
+
+  /* It will move the item to the next line if there is not enough space */
+  /* Example */
+  /* Each item has a width of 100px but the available space is not enough to fit all items so we will use flex-wrap to wrap our items and break the line if there is not space in the current row */
+
+  /* flex-wrap respects the width of an element and will not shrink/reduce the width to fit the item in one row */
+  flex-wrap: wrap;
+}
+
+.container .item {
+  background-color: #b425e4;
+}
+
+.order-container {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(41, 41, 41);
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-container .item {
+  background-color: #e4d425;
+  color: black;
+}
+
+.item:nth-of-type(1) {
+  order: 3;
+}
+
+.item:nth-of-type(2) {
+  order: 1;
+}
+
+.item:nth-of-type(3) {
+  order: 2;
+}
+
+/* Adjusting width of flex items*/
+.adjust-width {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(41, 41, 41);
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* flex basis: we set it on the item */
+/* It will be the initial width of the flex item */
+.adjust-width .item {
+  flex-basis: 200px;
+}
+
+.adjust-width .item:nth-of-type(1) {
+  order: 1;
+  flex-basis: 300px;
+  flex-grow: 5;
+}
+
+.adjust-width .item:nth-of-type(2) {
+  order: 2;
+  flex-grow: 1;
+}
+
+.adjust-width .item:nth-of-type(3) {
+  order: 3;
+  flex-grow: 1;
+}
+
+/* flex shrink */
+/* It is the opposite of flex-grow. It is the rate at which flex-item shrinks */
+
+.adjust-shrink {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(41, 41, 41);
+  justify-content: space-between;
+  align-items: center;
+  /* flex-wrap: wrap; */
+}
+
+.adjust-shrink .item {
+  flex-basis: 300px;
+}
+
+.adjust-shrink .item:nth-of-type(1) {
+  order: 1;
+  flex-grow: 4;
+  flex-shrink: 1;
+}
+
+.adjust-shrink .item:nth-of-type(2) {
+  order: 2;
+  flex-shrink: 2;
+  flex-grow: 1;
+}
+
+.adjust-shrink .item:nth-of-type(3) {
+  order: 3;
+  flex-shrink: 1;
+  flex-grow: 2;
+}
+
+/* We have a combination of flex-grow, flex-basis and flex-shrink  */
+
+/* 
+    1. flex-basis
+    2. flex-grow
+    3. flex-shrink 
+*/
+
+.shorthand-flex {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(41, 41, 41);
+  justify-content: space-between;
+  align-items: center;
+  /* flex-wrap: wrap; */
+}
+
+.shorthand-flex .item {
+  /* flex-basis: 200px;
+  flex-grow: 1;
+  flex-shrink: 1; */
+
+  /* flex: 1 0 100px;  grow shrink basis */
+  flex: 1; /* use flex: 1 when you want all boxes to take up the full width of the row and grow and shrink at the same rate */
+}
