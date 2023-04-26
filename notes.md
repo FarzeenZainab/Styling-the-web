@@ -114,3 +114,61 @@ You can use media queries to stach the columns on top of each other to make the 
 
 grid-template-columns: repeat(auto-fill, minmax(200px, auto))
 It will wrap the item to the next row if there is not enough space to fit item of 200px
+
+## Grid template areas
+
+You can lay things out using grid-template-areas
+
+For example inside body we have:
+
+ <body>
+    <header>Header</header>
+    <main>Main</main>
+    <nav>Nav</nav>
+    <aside>Sidebar</aside>
+    <footer>Footer</footer>
+  </body>
+
+Instead of setting width of columns and row we can create a placeholder area for each individual part
+
+body{
+grid-template-areas:
+"headerTempl headerTempl headerTempl"
+"navTempl mainTempl asideTempl"
+"navTempl footerTempl footerTempl";
+} // you can name anything you want to template parts
+
+We have 3 columns in this grid.
+"header header header" indicates that header div will take up entire space
+"nav main aside" indicates that nav, main and aside divs will take one column each
+"nav footer footer" indicates that nav will extend its height to footer's row and footer will take 2 columns
+
+using this template the header will render where the header is defined, footer will render at its place and main will render at it's place
+
+Now we just have to pass this reference / grid template to our html div
+
+header {
+grid-area: headerTempl;
+}
+
+nav {
+grid-area: navTempl;
+}
+
+main {
+grid-area: mainTempl;
+}
+
+aside {
+grid-area: asideTempl;
+}
+
+footer {
+grid-area: footerTempl;
+}
+
+We can set width and heights of these columns and rows using grid-template-rows and grid-template-columns
+body {
+grid-template-columns: 1fr 4fr 1fr;
+grid-template-rows: 1fr 5fr 1fr;
+}
